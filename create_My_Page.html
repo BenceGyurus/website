@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+  	<link rel="stylesheet" type="text/css" href="scrollbar_Style.css">
+    <link rel="stylesheet" type="text/css" href="create_My_Page.css">
+  	<meta charset = "utf-8">
+    <title>A saját oldal készítése</title>
+  </head>
+  <script src = "create_My_Page.js"></script>
+  <body>
+    <div class = "back_To_Home">
+      <a class = "back_To_Home_Link" href = "/">Vissza a kezdőlapra</a>
+    </div>
+    <div id = "header">
+    <h1>File elkészítés</h1>
+  </div>
+<div id = "code_Conteiner" class = "code_Grid">
+</div>
+  <br />Válaszd ki a weboldalad Karakter kódolását<select id = "char_Code">
+  <option value = "utf-8">UTF-8</option>
+  <option value = "ascii">ASCII</option>
+</select>
+<div id = "bar">
+    <div id = "looking" onclick = "show_Try()"><span id = "eye">👁</span><span id = "looking_Text">Megtekintés</span>
+  </div>
+</div>
+  <div id = "media">
+    <div id = "close_Btn" onclick = "close_Item('media')">X</div>
+A létrehozandó elem típutsa
+    <select id = "type">
+    <option value = "default">-</option>
+      <option value = "input">Szöveges mező</option>
+        <option value = "p">Bekezdés</option>
+          <option value = "button">Gomb</option>
+            <option value = "h">Címsor</option>
+            <option value = "textarea">Hosszú szöveg mező</option>
+            <option value = "img">Fénykép hozzáadása</option>
+    </select>
+    <br />
+    <div id = "item_Datas"></div>
+  A létrehozandó elem id-ja:<input id = "id" type = "text" placeholder="code"><br /><span id = "advice">Tanács: Arra figyelj, hogy nem szokás ékezetes betűket és space-t használni az ID megadásakor és ne add több itemnek ugyanzt a nevet.</span>
+  <br /><span id = "error_Message"></span><br/><input type = "button" id = "return_Button" value = "Létrehozás" onclick= "generate_Item()">
+  </div>
+  <div id = "css_Panel">
+    <div id = "close_Btn" onclick = "close_Item('css_Panel')">X</div>
+    Betűszín beállítása:<br />
+    <div id = "color" style = "background: black; width: 10px; height: 10px;" onclick = "set_Color('black')"></div>
+    <div id = "color" style = "background: white; width: 10px; height: 10px;" onclick = "set_Color('white')"></div>
+    <div id = "color" style = "background: red; width: 10px; height: 10px;" onclick = "set_Color('red')"></div>
+    <div id = "color" style = "background: blue; width: 10px; height: 10px;" onclick = "set_Color('blue')"></div>
+    <div id = "color" style = "background: green; width: 10px; height: 10px;" onclick = "set_Color('green')"></div>
+    <div id = "color" style = "background: yellow; width: 10px; height: 10px;" onclick = "set_Color('yellow')"></div>
+    <div id = "color" style = "background: orange; width: 10px; height: 10px;" onclick = "set_Color('orange')"></div>
+    <br />
+    Egyéni színkód megadása: <input id = "color_Code" type = "color"><input type = "button" onclick = "set_Custom_Color()" value = "Beállítás">
+    <br />
+    Háttérszín beállítás<br />
+    <div id = "color" style = "background: black; width: 10px; height: 10px;" onclick = "set_Background_Color('black')"></div>
+    <div id = "color" style = "background: white; width: 10px; height: 10px;" onclick = "set_Background_Color('white')"></div>
+    <div id = "color" style = "background: red; width: 10px; height: 10px;" onclick = "set_Background_Color('red')"></div>
+    <div id = "color" style = "background: blue; width: 10px; height: 10px;" onclick = "set_Background_Color('blue')"></div>
+    <div id = "color" style = "background: green; width: 10px; height: 10px;" onclick = "set_Background_Color('green')"></div>
+    <div id = "color" style = "background: yellow; width: 10px; height: 10px;" onclick = "set_Background_Color('yellow')"></div>
+    <div id = "color" style = "background: orange; width: 10px; height: 10px;" onclick = "set_Background_Color('orange')"></div>
+    <div id = "color" style = "background: none; width: 10px; height: 10px;" onclick = "set_Background_Color('none')"></div>
+    <br />
+    Egyéni színkód megadása: <input id = "background_Color_Code" type = "color"><input type = "button" onclick = "set_Custom_Background()" value = "Beállítás">
+    <br />
+    Keret színe<br />
+    <div id = "color" style = "background: black; width: 10px; height: 10px;" onclick = "set_Border_Color('black')"></div>
+    <div id = "color" style = "background: white; width: 10px; height: 10px;" onclick = "set_Border_Color('white')"></div>
+    <div id = "color" style = "background: red; width: 10px; height: 10px;" onclick = "set_Border_Color('red')"></div>
+    <div id = "color" style = "background: blue; width: 10px; height: 10px;" onclick = "set_Border_Color('blue')"></div>
+    <div id = "color" style = "background: green; width: 10px; height: 10px;" onclick = "set_Border_Color('green')"></div>
+    <div id = "color" style = "background: yellow; width: 10px; height: 10px;" onclick = "set_Border_Color('yellow')"></div>
+    <div id = "color" style = "background: orange; width: 10px; height: 10px;" onclick = "set_Border_Color('orange')"></div>
+    <div id = "color" style = "background: none; width: 10px; height: 10px;" onclick = "set_Border_Color('none')"></div><br />
+    Egyéni színkód megadása: <input id = "border_Code" type = "color"><input type = "button" onclick = "set_Custom_Border()" value = "Beállítás"><br />
+    Keret lekerekítése:<br />
+    <input type = "number" id = "border_Radius" value = 0>
+    <input type = "button" onclick = "set_Border_Radius()" value="Keret beállítása">
+    <br />Belső térköz<input type = "number" id = "set_Padding" value = 3>px
+    <br />Külső térköz<input type = "number" id = "set_margin" value = 3>px
+    <br /><input type = "button" onclick = "set_Margin_And_Padding()" value = "Belső és külső térköz beállítása">
+    <br />
+    Betűméter<input type = "number" id = "font_Size">px
+    <br />
+    <input type = "button" value = "Betűméret beállítása" onclick = "set_Font_Size()">
+  </div>
+  <div id = "select">
+  </div>
+  <div id = "work_Place"></div>
+  <input type = "button" onclick = "add_New_Data()" value = "Elem hozzáadása">
+  <h1 class = "code_Title">HTML</h1><div id = "html_Code" class = "code"></div>
+  <h1 class = "code_Title">CSS</h1><div id = "css_Code" class = "code"></div>
+  <div id = "try_Your_Self"></div>
+  </body>
+</html>
