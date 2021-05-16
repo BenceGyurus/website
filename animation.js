@@ -1,4 +1,4 @@
-var click = false
+var last_Width = 0;
 
 function nav_Bar(){
   if (document.querySelector(".nav_Bar").style.display == "none"){
@@ -17,17 +17,17 @@ if (window.innerWidth < 400){
 }
 
 
-setInterval(function(){console.log()
-if (window.innerWidth < 400 && window.click == false){
-  if (document.querySelector(".nav_Bar").style.display != "none"){
+setInterval(function(){
+if (window.innerWidth < 600 && window.last_Width != window.innerWidth){
     nav_Bar();
-    document.querySelector(".nav_Bar li").style.float = "none";
+    document.querySelector(".nav_Bar").style.width = "50%";
 }
-if (window.innerWidth > 400){
-  window.click = false;
-  if (document.querySelector(".nav_Bar").style.display == "none"){
-    document.querySelector(".nav_Bar li").style.float = "left";
-    nav_Bar();
-  }
+if (window.innerWidth > 600 && window.last_Width != window.innerWidth){
+  nav_Bar();
+    window.click = false;
+    document.querySelector(".nav_Bar").style.width = "400px";
+
 }
-}},10);
+window.last_Width = window.innerWidth},10);
+
+nav_Bar();
