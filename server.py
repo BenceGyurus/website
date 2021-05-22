@@ -4,7 +4,7 @@ import logging
 import socketserver
 import socket
 from path_Selector import open_File
-
+from save_Users_Files import *
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         data = b"Not Found"
@@ -19,6 +19,18 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-text", "image/png")
         self.end_headers()
         self.wfile.write(data)
+    def do_POST(self):
+        global host_Name
+        print(f"[NEW POST] {self.path}")
+        content_length = int(self.headers['Content-Length'])
+        print(content_length)
+        post_data = self.rfile.read(content_length)
+        data = control_Users(self.client_address[0], self.path, post_data, host_Name)
+        print(post_data)
+        self.send_response(200)
+        self.send_header("Content-text", "text/txt")
+        self.end_headers()
+        self.wfile.write(data.encode("utf-8"))
 
 handler_object = MyHttpRequestHandler
 
@@ -26,4 +38,5 @@ PORT = 8000
 IP = socket.gethostbyname(socket.gethostname())
 server = socketserver.TCPServer((IP, PORT), handler_object)
 print(f"Server started ({IP}:{PORT})")
+host_Name = f"{IP}:{PORT}"
 server.serve_forever()

@@ -289,3 +289,45 @@ input{
   background: white;
   color: #0447b3;
 }
+
+#share_Icon{
+  transition: 0.5s;
+  width: 25px;
+  position: absolute;
+  right: 30px;
+  top: 70px;
+  border: 3px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  display: none;
+}
+
+#share_Bar{
+  border: 3px solid black;
+  position: absolute;
+  display: none;
+  top: 35%;
+  left: 30%;
+  background-color: #014b6b;
+  padding: 10px;
+  border-radius: 50px;
+  width: 40%;
+}
+
+#link_Pos{
+  width: 80%;
+  padding: 3px;
+  margin: 10%;
+}
+
+.add_Btn{
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  text-align: center;
+  padding: 0px;
+}
+.add_Btn:hover{
+  color: #00628c;
+  background-color: black;
+}

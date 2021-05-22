@@ -2,14 +2,19 @@ import os
 def open_File(filename, ip):
     filename = filename.split("?")[0]
     print(filename)
-    new_Filename = ""
     new_Filename = "error.html"
     response = 404
     datas = b"ERROR"
     if filename == "/":
         filename = "main.html"
     if filename:
-        new_Filename = filename.split("/")[len(filename.split("/"))-1]
+        new_Filename = ""
+        splited = filename.split("/")
+        for i in filename.split("/"):
+            if i != filename.split("/")[0] and splited[len(splited)-1] != i:
+                new_Filename += f"{i}/"
+            elif splited[len(splited)-1] == i:
+                new_Filename += i
     extension = filename.split(".")[len(filename.split("."))-1]
     print(new_Filename)
     print(extension)

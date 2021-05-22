@@ -16,7 +16,6 @@ if (window.innerWidth < 400){
   nav_Bar();
 }
 
-
 setInterval(function(){
 if (window.innerWidth < 600 && window.last_Width != window.innerWidth){
     nav_Bar();

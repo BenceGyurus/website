@@ -12,6 +12,7 @@ var items_Colors = new Array();
 var last_List;
 var try_Html = new Array();
 var to_Save = {};
+var backGround_Colors = [];
 //Megjeleníti a media divet
 
 
@@ -22,6 +23,9 @@ function control_Replaced_Ids(try_Id){
       replaced = true;
       break;
     }
+  }
+  if (try_Id == "body"){
+    replaced = true;
   }
   return replaced;
 }
@@ -76,6 +80,10 @@ function generate_This_Item(){
   }
   if (document.getElementById("work_Place").style.display != "block"){
     document.getElementById("work_Place").style.display = "block";
+  }
+  if (id == "body"){
+    id += Math.floor(Math.random()*100);
+  alert("Ez az id már korábban szerepelt, ezért a rendszer megváltoztatta a beírt id-t arendszer megfelelő működéséhez a következődre: "+id);
   }
   var this_Item;
   var html = "";
@@ -308,7 +316,12 @@ function set_Css(){
   document.getElementById("css_Code").innerHTML = "";
   for (i = 0; i < window.style_Items.length;i++){
     if (window.style_Items[i]){
+      if (window.style_Items[i][2] != "body"){
     document.getElementById("css_Code").innerHTML += "#"+window.style_Items[i][2]+"{ "+window.style_Items[i][0]+":"+window.style_Items[i][1]+"; }"+"<br />";
+      }
+      else{
+        document.getElementById("css_Code").innerHTML +=window.style_Items[i][2]+"{ "+window.style_Items[i][0]+":"+window.style_Items[i][1]+"; }"+"<br />";
+      }
     }
   }
   try_In();
@@ -376,7 +389,6 @@ function set_Custom_Border(){
 function set_Font_Size(){
   size = document.getElementById("font_Size").value;
   a = control(window.last_Id, "font-size");
-  console.log(size);
   if (a[0] == false){
     window.style_Items[a[1]] = ["font-size", size+"px", window.last_Id];
   }
@@ -448,6 +460,13 @@ function generate_Random_Id(){
 }
 
 function try_In(){
+    for(var i = 0; i < window.style_Items.length; i++){
+      if(window.style_Items[i]){
+      if (window.style_Items[i][2] == "body"){
+        document.getElementById("try_Your_Self").style.background = window.style_Items[i][1];
+      }
+    }
+    }
   html_In_String = "";
   for (var i = 0; i < window.try_Html.length; i++){
     if (window.try_Html[i]){
@@ -458,11 +477,12 @@ function try_In(){
   for (var i = 0; i < window.try_Html.length; i++){
     for (var k = 0; k < window.style_Items.length; k++){
       if (window.try_Html[i]){
+        if (window.style_Items[k][2] == "body"){
+          document.getElementById("try_Your_Self").style.background = window.style_Items[k][1];
+        }
       if(window.try_Html[i][2] == window.style_Items[k][2]){
         if (window.style_Items[k]){
         a = window.style_Items[k][0];
-        console.log(a);
-        console.log(window.try_Html[i][1]);
         if(a == "color"){
           document.getElementById(window.try_Html[i][1]).style.color = window.style_Items[k][1];
         }
@@ -473,7 +493,6 @@ function try_In(){
           document.getElementById(window.try_Html[i][1]).style.margin = window.style_Items[k][1];
         }
         if (a == "border"){
-          console.log("bordera");
           document.getElementById(window.try_Html[i][1]).style.border = window.style_Items[k][1];
         }
         if (a == "border-radius"){
@@ -486,11 +505,11 @@ function try_In(){
           document.getElementById(window.try_Html[i][1]).style.fontSize = window.style_Items[k][1];
         }
       }
+      }
     }
     }
   }
   }
-}
 
 function show_Try(){
   if (document.getElementById("try_Your_Self").style.opacity == 0 || document.getElementById("try_Your_Self").style.opacity == "0"){
@@ -534,3 +553,138 @@ window.last_Type = data;
 }
 ell_Work_Place_Div();
 }, 500);
+
+function send_Data(data, url){
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if (req.readyState == 4 && req.status == 200){
+      if (url == "new_Html_File"){
+        send_Css();
+      }
+      if (req.responseText && url == "add_Css_File"){
+        element_Link(req.responseText);
+        
+      }
+    }
+  }
+  req.open("POST", url);
+  req.send(data);
+}
+
+function element_Link(link){
+  document.getElementById("share_Bar").style.display = "block";
+  document.getElementById("share_Icon").style.display = "block";
+  document.getElementById("link_Pos").value = link;
+}
+
+function send_Css(){
+  var css = "";
+  for (var i = 0; i < window.style_Items.length; i++){
+    if (window.style_Items[i]){
+      if (window.style_Items[i][2] != "body"){
+      css += "\n#"+window.style_Items[i][2]+"{"+window.style_Items[i][0]+":"+window.style_Items[i][1]+";}";
+      }
+      else if (window.style_Items[i][2] == "body"){
+      css += "\n"+window.style_Items[i][2]+"{"+window.style_Items[i][0]+":"+window.style_Items[i][1]+";}";
+      }
+    }
+  }
+  if (!css){
+    css = "none";
+  }
+  send_Data(css, "add_Css_File");
+}
+
+function save(){
+  var html = "<body>";
+  for (var i = 0 ; i < window.html_Items.length; i++){
+    if (window.html_Items[i]){
+    html += window.html_Items[i][0];
+    }
+  }
+  html += "</body>";
+  send_Data(html, "new_Html_File");
+}
+
+function show_Share_Bar(){
+  bar_Status = document.getElementById("share_Bar").style.display;
+  if (bar_Status == "none"){
+    document.getElementById("share_Bar").style.display = "block";
+  }
+  else{
+    document.getElementById("share_Bar").style.display = "none";
+  }
+}
+
+function copy(id){
+  text = document.getElementById(id);
+  text.select();
+  text.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+}
+
+function add_Color(){
+  var id = window.backGround_Colors.length;
+  window.backGround_Colors.push(window.backGround_Colors.length);
+  document.getElementById("colors").innerHTML += '<input type = "color" id = "'+id+'">'
+}
+
+function delete_The_Last_Color(){
+  if (window.backGround_Colors.length > 1){
+  var i = window.backGround_Colors.length+1;
+  var id;
+  while (id == "undefined" || id == undefined){
+    i--;
+    id = String(window.backGround_Colors[i]);
+  }
+  document.getElementById(id).remove();
+  delete window.backGround_Colors[i];
+  }
+}
+
+function set_BackGround(){
+  var index = "none";
+  if (window.backGround_Colors.length >= 1){
+    for (var i = 0; i < window.style_Items.length; i++){
+      if (window.style_Items[i][2] == "body"){
+        index = i;
+      }
+    }
+    if (window.backGround_Colors.length == 1){
+      if (index == "none"){
+      window.style_Items.push(["background", document.getElementById(window.backGround_Colors[0]).value,"body"]);
+      }
+      else{
+        window.style_Items[index][1] = document.getElementById(window.backGround_Colors[0]).value;
+      }
+    }
+    else if (window.backGround_Colors.length > 1){
+      var str_Color = "";
+      var number_Of_Colors = 0;
+      for (var i = 0; i < window.backGround_Colors.length; i++){
+        if (window.backGround_Colors[i] && str_Color != ""){
+          str_Color += ","+document.getElementById(window.backGround_Colors[i]).value;
+          number_Of_Colors += 1
+        }
+        else if (str_Color == "" && window.backGround_Colors[i] || window.backGround_Colors[i] == 0){
+          str_Color += document.getElementById(window.backGround_Colors[i]).value;
+          number_Of_Colors += 1
+        }
+      }
+      if (index == "none" && number_Of_Colors > 1){
+      window.style_Items.push(["background-image", "linear-gradient(to right, "+str_Color+")","body"]);
+      }
+      else if(number_Of_Colors > 1){
+        window.style_Items[index][1] = "linear-gradient(to right, "+str_Color+")";
+      }
+      else if (index == "none"){
+        window.style_Items.push(["background", str_Color,"body"]);
+      }
+      else if (index != "none"){
+        window.style_Items[index][1] = str_Color;
+      }
+    }
+  }
+  set_Css();
+  try_In();
+}

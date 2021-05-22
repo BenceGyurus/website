@@ -20,10 +20,24 @@
   <option value = "utf-8">UTF-8</option>
   <option value = "ascii">ASCII</option>
 </select>
+<div id = "backGround_Choose">
+  <h2>Háttérszín megadása</h2>
+  <div id = "colors">
+  </div>
+  <input type = "button" value = "+" class = "add_Btn" onclick = "add_Color()">
+  <input type = "button" value = "-" class = "add_Btn" onclick = "delete_The_Last_Color()">
+  <input type = "button" value = "Beállítás" onclick = "set_BackGround()">
+</div>
 <div id = "bar">
     <div id = "looking" onclick = "show_Try()"><span id = "eye">👁</span><span id = "looking_Text">Megtekintés</span>
   </div>
 </div>
+<div id = "save_Grid">
+  <input type = "button" onclick = "save()" value = "Hostolás">
+</div>
+  <div id = "share_Grid">
+    <img src="share_Icon.png" alt="share icon" id = "share_Icon" onclick = "show_Share_Bar()">
+  </div>
   <div id = "media">
     <div id = "close_Btn" onclick = "close_Item('media')">X</div>
 A létrehozandó elem típutsa
@@ -32,9 +46,9 @@ A létrehozandó elem típutsa
       <option value = "input">Szöveges mező</option>
         <option value = "p">Bekezdés</option>
           <option value = "button">Gomb</option>
-            <option value = "h">Címsor</option>
-            <option value = "textarea">Hosszú szöveg mező</option>
-            <option value = "img">Fénykép hozzáadása</option>
+              <option value = "h">Címsor</option>
+                <option value = "textarea">Hosszú szöveg mező</option>
+                <option value = "img">Fénykép hozzáadása</option>
     </select>
     <br />
     <div id = "item_Datas"></div>
@@ -94,5 +108,10 @@ A létrehozandó elem típutsa
   <h1 class = "code_Title">HTML</h1><div id = "html_Code" class = "code"></div>
   <h1 class = "code_Title">CSS</h1><div id = "css_Code" class = "code"></div>
   <div id = "try_Your_Self"></div>
+  <div id = "share_Bar">
+    <input type = "button" value = "X" id = "close_Btn" onclick = "close_Item('share_Bar')"/>
+    <input type = "text" value = "" id = "link_Pos" readonly/>
+    <input type = "button" value = "Másolás" id = "copy" onclick = "copy('link_Pos')"/>
+  </div>
   </body>
 </html>
