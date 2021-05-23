@@ -229,10 +229,14 @@ function display_Css_Panel(id){
   }
   else{
     document.getElementById("css_Panel").style.display ="block";
-    document.getElementById("css_Panel").style.position = "absolute";
+    document.getElementById("css_Panel").style.position = "fixed";
+    height = 350
     pos = window.event;
     posX = pos.clientX;
     posY = pos.clientY;
+    if (window.innerHeight-posY < height+50){
+      posY = posY-((posY-(height+50)));
+    }
     document.getElementById("css_Panel").style.top = posY+"px";
     document.getElementById("css_Panel").style.left  = posX+"px";
    }
@@ -646,9 +650,11 @@ function set_BackGround(){
   var index = "none";
   if (window.backGround_Colors.length >= 1){
     for (var i = 0; i < window.style_Items.length; i++){
+      if (window.style_Items[i]){
       if (window.style_Items[i][2] == "body"){
         index = i;
       }
+    }
     }
     if (window.backGround_Colors.length == 1){
       if (index == "none"){
@@ -681,6 +687,9 @@ function set_BackGround(){
         window.style_Items.push(["background", str_Color,"body"]);
       }
       else if (index != "none"){
+        if (window.style_Items[index][0] == "background-image"){
+          window.style_Items[index][0] = "background";
+        }
         window.style_Items[index][1] = str_Color;
       }
     }

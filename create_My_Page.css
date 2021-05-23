@@ -7,7 +7,7 @@ body{
 }
 #media{
   z-index:99;
-  position:absolute;
+  position:fixed;
   display: none;
   left: 25%;
   top: 30%;
@@ -127,20 +127,20 @@ body{
 
 #css_Panel{
   display: none;
+  position: absolute;
   padding: 30px;
-  top: 20%;
-  left: 20%;
   border: 3px solid black;
-  border-radius: 30px;
+  border-radius: 5px;
   background: #014b6b;
   z-index: 99;
   font-style: "ubuntu", sans-serif;
+  height: 350px;
+  overflow: auto;
 }
 
 #close_Btn{
   width: 30px;
   height: 30px;
-  background: #014b6b;
   color: red;
   border-radius: 0px 20px 0px 0px;
   text-align: center;
@@ -151,6 +151,8 @@ body{
   top: 10px;
   box-shadow: 0px 0px 0px 0px;
   cursor:  pointer;
+  border: none;
+  background: none;
 }
 input{
 	border-radius: 30px;
@@ -258,7 +260,7 @@ input{
 
 #try_Your_Self{
   background: white;
-  top: 10%;
+  top: 15%;
   width: 30%;
   position: absolute;
   right: 5%;
@@ -278,16 +280,17 @@ input{
 .back_To_Home_Link{
   margin: 3px;
   padding: 5px;
-  border: 3px solid white;
+  border: 3px solid black;
   text-align: center;
   text-decoration: none;
-  color: white;
+  color: black;
   font-weight: bold;
+  border-radius: 10px;
 }
 
 .back_To_Home:hover .back_To_Home_Link{
-  background: white;
-  color: #0447b3;
+  background: black;
+  color: #189ed9;
 }
 
 #share_Icon{

@@ -1,9 +1,10 @@
 /*from W3shool*/
 ::-webkit-scrollbar {
   width: 11px;
+  height: 11px;
 }
 ::-webkit-scrollbar-track {
-  background: aqua;
+  background: #014b6b;
 }
 ::-webkit-scrollbar-thumb {
   background: #4d8a8a;

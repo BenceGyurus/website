@@ -5,6 +5,12 @@ import socketserver
 import socket
 from path_Selector import open_File
 from save_Users_Files import *
+import datetime
+
+def log(id, port, req):
+    with open("log.txt", "a", encoding = "utf-8") as file:
+        file.write(f"ID: {id}; PORT: {port}; TIME: {datetime.datetime.now()}; REQUEST: {req}\n")
+
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         data = b"Not Found"
@@ -19,6 +25,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-text", "image/png")
         self.end_headers()
         self.wfile.write(data)
+        log(self.client_address[0], self.client_address[1], self.path)
     def do_POST(self):
         global host_Name
         print(f"[NEW POST] {self.path}")
