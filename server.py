@@ -33,7 +33,6 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         print(content_length)
         post_data = self.rfile.read(content_length)
         data = control_Users(self.client_address[0], self.path, post_data, host_Name)
-        print(post_data)
         self.send_response(200)
         self.send_header("Content-text", "text/txt")
         self.end_headers()
@@ -44,6 +43,6 @@ handler_object = MyHttpRequestHandler
 PORT = 8000
 IP = socket.gethostbyname(socket.gethostname())
 server = socketserver.TCPServer((IP, PORT), handler_object)
-print(f"Server started ({IP}:{PORT})")
+print(f"[SERVER STARTED] {IP}:{PORT}")
 host_Name = f"{IP}:{PORT}"
 server.serve_forever()

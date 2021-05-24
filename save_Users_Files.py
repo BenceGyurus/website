@@ -7,14 +7,11 @@ def control_Users(id, file_Type, data, host_Name):
     return_Message = ""
     try: 
         data = data.decode("utf-8")
-        print(data)
     except:
         pass
     if file_Type == "/add_Css_File":
             users[id][1] = data
-            print(users[id])
             random_Name = save_File(users[id], id)
-            print(random_Name)
             return_Message = f"{host_Name}/users_Websites/{random_Name}.html"
     if file_Type == "/new_Html_File":
         users[id] = [data, ""]
@@ -32,7 +29,6 @@ def save_File(file, name):
             file_Name += f"{random.randint(0,9)}"
         elif num == 1:
             file_Name += f"{list_Letters[random.randint(0, len(list_Letters)-1)]}"
-    print(file_Name)
     html_File_Datas = f"""<!DOCTYPE html>
     <html lang="hu">
     <head>
@@ -48,7 +44,6 @@ def save_File(file, name):
         filed.write(html_File_Datas)
     with open(f"users_Websites/{file_Name}.css", "w", encoding = "utf-8") as filed:
         filed.write(file[1])
-    print(f"file[1]: {file[1]}")
     del users[name]
     return file_Name
 
